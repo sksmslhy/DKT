@@ -20,10 +20,10 @@ def download_progress_hook(count, blockSize, totalSize):
       
         last_percent_reported = percent
 
-def load_or_download(filename, url_i='assistments_train'):
+def load_or_download(filename, url_i='data_r_train'):
     urls = {
-        'assistments_train' : 'https://raw.githubusercontent.com/siyuanzhao/2016-EDM/master/data/0910_c_train.csv',
-        'assistments_test' : 'https://raw.githubusercontent.com/siyuanzhao/2016-EDM/master/data/0910_c_test.csv'
+        'data_r_train' : 'https://raw.githubusercontent.com/siyuanzhao/2016-EDM/master/data/0910_c_train.csv',
+        'data_r_test' : 'https://raw.githubusercontent.com/siyuanzhao/2016-EDM/master/data/0910_c_test.csv'
     }
     if not os.path.exists(filename):
         assert url_i in urls, "file {} does not exist and no url supplied".format(filename)
@@ -32,7 +32,7 @@ def load_or_download(filename, url_i='assistments_train'):
         print("\nDownload complete")
     return filename
 
-def read_data_from_csv_file(filename, url_i='assistments_train'):
+def read_data_from_csv_file(filename, url_i='data_r_train'):
     tuples = []
     targets = []
     seen_probs = []
@@ -54,6 +54,9 @@ def read_data_from_csv_file(filename, url_i='assistments_train'):
                 n_seq = int(next(csvreader)[0])
                 pids = next(csvreader)
                 targets = next(csvreader)
+                print("pids : ", pids)
+                print("targets : ", targets)
+                exit()
             except StopIteration:
                 tuples.append((n_seq,list(zip(map(int,pids),map(int,targets)))))
                 targets = None

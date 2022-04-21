@@ -81,8 +81,8 @@ def run(session, train_batchgen, test_batchgen, train_steps):
                     test_feed_dict = {m.Xs : test_batch_Xs, m.Ys : test_batch_Ys, 
                                       m.seq_len : test_batch_sequence_lengths}
                     pred = session.run([m.predict], feed_dict=test_feed_dict)
-                    print("pred : ", (pred))
-                    exit()
+                    #print("pred : ", (pred))
+                    #exit()
                     auc += roc_auc_score(test_batch_labels.reshape(-1),np.array(pred).reshape(-1))/50
                 print('AUC score: {}'.format(auc))   
                 save_path = m.saver.save(session, 'model.ckpt')
@@ -117,12 +117,14 @@ if __name__ == "__main__":
             * 학생 당 푼 문제의 개수는 다를 수 있음
         - id2idx : dict
     '''
-    train_data, id2idx =read_data_from_csv_file('0910_c_train.csv',url_i='assistments_train')
+    #train_data, id2idx =read_data_from_csv_file('0910_c_train.csv',url_i='assistments_train')
+    train_data, id2idx =read_data_from_csv_file('data_r_train.csv',url_i='data_r_train')
     # print("train_data : ", train_data)
     # print("train_data shape : ", (train_data[1]))
     # print("train_data shape : ", len(train_data[1][1]))
     # print("id2idx : ", id2idx)
-    test_data, id2idx2 =read_data_from_csv_file('0910_c_test.csv',url_i='assistments_test')
+    #test_data, id2idx2 =read_data_from_csv_file('0910_c_test.csv',url_i='assistments_test')
+    test_data, id2idx2 =read_data_from_csv_file('data_r_test.csv',url_i='data_r_test')
     print('-'*20+' Prepare the Data Done '+'-'*20)
 
     args = parser.parse_args()
